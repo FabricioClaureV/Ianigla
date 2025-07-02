@@ -56,6 +56,9 @@ param_lines <- gsub("#.*", "", param_lines) # Eliminar comentarios
 param_lines <- trimws(param_lines)          # Eliminar espacios al inicio/final
 param_lines <- param_lines[param_lines != ""] # Eliminar líneas vacías
 
+# Opciones para el manejo de parámetros duplicados
+keep_first_duplicate <- TRUE  # TRUE: se conserva la primera aparición
+
 # Crear listas para los nombres y valores de los parámetros
 param_names <- character(0)
 param_values <- numeric(0)
@@ -67,13 +70,22 @@ for (line in param_lines) {
   
   if (length(parts) >= 2) {
     param_name <- parts[1]
-    value_str <- parts[2]
-    
+    value_str  <- parts[2]
+
     # Intentar convertir a número y verificar si es un número válido (no NA)
     numeric_value <- suppressWarnings(as.numeric(value_str))
-    
+
     if (!is.na(numeric_value)) {
-      param_names <- c(param_names, param_name)
+      if (param_name %in% param_names) {
+        warning(sprintf("Par\u00e1metro repetido: %s", param_name))
+        if (keep_first_duplicate) {
+          next
+        } else {
+          stop(sprintf("Nombres de par\u00e1metro duplicados encontrados: %s", param_name))
+        }
+      }
+
+      param_names  <- c(param_names, param_name)
       param_values <- c(param_values, numeric_value)
     }
   }
