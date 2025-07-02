@@ -1,0 +1,73 @@
+PARÁMETROS HBV-IANIGLA - VERSIÓN FINAL AJUSTADA PARA GENERAR CAUDAL
+NOTA: Estos son valores de partida para obtener una respuesta inicial.
+La calibración final requerirá ajustar estos valores para que coincidan con tu cuenca.
+=================================================
+Módulo de Nieve y Hielo (Snow/Ice Module)
+=================================================
+Parámetros generales de nieve
+SFCF      1.0      # Factor de corrección de precipitación de nieve
+CFR       0.05     # Factor de recongelación del agua en la nieve (mm/C/dia)
+
+Parámetros para NIEVE (sobre cualquier superficie)
+TT_1      0.0      # Temperatura umbral para lluvia/nieve y para derretimiento de nieve (C)
+CFMAX_1   2.5      # Factor grado-día para NIEVE (mm/C/dia).
+
+Parámetros para HIELO LIMPIO (Glaciar Blanco, superficie tipo 1)
+TT_2      0.0      # Temperatura umbral para derretimiento de HIELO LIMPIO (C).
+CFMAX_2   5.0      # Factor grado-día para HIELO LIMPIO (mm/C/dia).
+
+Parámetros para HIELO CUBIERTO (Glaciar de Detritos, superficie tipo 3)
+TT_3      0.5      # Temperatura umbral para derretimiento de HIELO CUBIERTO (C).
+CFMAX_3   1.2      # Factor grado-día para HIELO CUBIERTO (mm/C/dia).
+
+=================================================
+Módulo de Suelo (Soil Module)
+=================================================
+FC        200.0    # Capacidad de campo máxima del suelo (mm). ¡VALOR AJUSTADO! (Antes 250)
+LP        0.6      # Umbral de evapotranspiración (fracción de FC). ¡VALOR AJUSTADO! (Antes 0.5)
+BETA      1.5      # Exponente de escorrentía. ¡VALOR AJUSTADO! (Antes 1.8, un valor más bajo genera escorrentía más fácilmente)
+PERC      3.0      # Percolación máxima al reservorio inferior (mm/dia). ¡VALOR AJUSTADO! (Antes 5.0)
+UZL       20.0     # Umbral de almacenamiento del reservorio superior (mm). ¡VALOR AJUSTADO! (Antes 25.0)
+
+PARÁMETROS HBV-IANIGLA - BASADOS EN EL EJEMPLO DEL AUTOR
+Usamos estos valores como un punto de partida "conocido" para diagnosticar el modelo.
+=================================================
+Módulo de Nieve y Hielo (Snow/Ice Module)
+=================================================
+Parámetros para nieve (usados tanto en suelo como en glaciar)
+SFCF      1.1      # Factor de corrección de nieve
+TT_1      0.0      # Temperatura umbral para nieve/lluvia
+CFMAX_1   2.5      # Factor de derretimiento para nieve
+
+Parámetros específicos para glaciar (usados cuando la superficie es tipo 1 o 3)
+CFR       0.05     # Factor de recongelación
+TT_2      0.0      # Temperatura umbral para hielo limpio (Glaciar Blanco)
+CFMAX_2   6.0      # Factor de derretimiento para hielo limpio. ¡Valor alto para asegurar derretimiento!
+TT_3      0.5      # Temperatura umbral para hielo cubierto (Glaciar de Detritos)
+CFMAX_3   1.5      # Factor de derretimiento para hielo cubierto.
+
+=================================================
+Módulo de Suelo (Soil Module)
+=================================================
+Parámetros tomados directamente del ejemplo del autor
+FC        150.0    # Capacidad de campo máxima del suelo (mm)
+LP        0.90     # Umbral de evapotranspiración (fracción de FC)
+BETA      1.5      # Exponente de escorrentía
+
+=================================================
+Módulo de Respuesta (Response Module)
+=================================================
+Parámetros de Ruteo para SUELO (tomados del ejemplo del autor)
+K0        0.09     # Constante de recesión rápida
+K1        0.07     # Constante de recesión intermedia
+K2        0.05     # Constante de recesión lenta
+UZL       5.0      # Umbral del reservorio superior
+PERC      2.0      # Percolación
+
+Parámetros de Ruteo para GLACIAR (valores iniciales razonables)
+KGmin     0.05     # Coeficiente de descarga mínimo del glaciar
+dKG       0.95     # Incremento máximo del coeficiente de descarga
+AG        1000     # Parámetro de escala de nieve sobre glaciar
+
+Parámetro de Función de Transferencia (tomado del ejemplo del autor)
+MAXBAS    3.0      # Tiempo base del hidrograma unitario
